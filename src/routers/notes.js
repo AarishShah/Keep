@@ -47,7 +47,7 @@ router.get('/notes/:id', async (req, res) =>
 
         if (!note)
         {
-            return res.status(404).send()
+            return res.status(404).send({ statusCode: 404, messgae: "Note not found!" })
         }
         res.send(note)
 
