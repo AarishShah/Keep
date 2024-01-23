@@ -110,3 +110,18 @@ router.delete('/notes/:id', async (req, res) =>
 )
 
 module.exports = router
+
+/* Test data
+
+{
+    "title": "Meeting Notes",
+    "tagline": "Notes from the client meeting on Jan 24th",
+    "body": "Discussed project timelines, budget constraints, and initial design ideas. Action items include...",
+    "pinned": true, // false by default
+    "_id": "65b012848d2e17f8cf22823d",
+    "createdAt": "2024-01-23T19:24:52.226Z",
+    "updatedAt": "2024-01-23T19:24:52.226Z",
+    "__v": 0
+}
+
+*/
