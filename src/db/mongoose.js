@@ -14,10 +14,12 @@ mongoose.connect
         process.exit(1); // Optionally exit the process if unable to connect
     });
     
+    // will keep listening to the events and throw error if any during the entire connection process
     mongoose.connection.on('error', err => {
         console.error('Mongoose connection error:', err);
     });
     
+    // to check only once if the connection is "open"
     mongoose.connection.once('open', () => {
         console.log('Connected to MongoDB successfully!');
     });

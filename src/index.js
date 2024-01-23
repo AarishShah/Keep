@@ -1,6 +1,8 @@
 //  D:\InstalledSoftwares\mongodb\mongodb\bin\mongod.exe --dbpath=D:\InstalledSoftwares\mongodb\mongodb-data
 
 const express = require('express')
+require('./db/mongoose') // to connect mongose to the database
+
 const notesRouter = require('./routers/notes')
 
 const app = express()

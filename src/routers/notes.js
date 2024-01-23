@@ -33,7 +33,7 @@ router.get('/notes', async (req, res) =>
         res.send(notes);
     } catch (e)
     {
-        res.status(500).send();
+        res.status(500).send({ statusCode: 500, messgae: "Unable to fetch notes!" });
     }
 });
 
