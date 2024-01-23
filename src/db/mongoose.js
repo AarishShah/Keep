@@ -9,4 +9,15 @@ mongoose.connect
             // useCreateIndex: true
             // useFindAndModify: false // set true by default, this will address the depracation warnings
         }
-    )
+    ).catch(error => {
+        console.error("Database connection failed:", error);
+        process.exit(1); // Optionally exit the process if unable to connect
+    });
+    
+    mongoose.connection.on('error', err => {
+        console.error('Mongoose connection error:', err);
+    });
+    
+    mongoose.connection.once('open', () => {
+        console.log('Connected to MongoDB successfully!');
+    });

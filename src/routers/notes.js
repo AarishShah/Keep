@@ -13,7 +13,7 @@ router.post('/notes', async (req, res) =>
     } catch (e)
     {
         console.log(e);
-        res.status(400).send({ statusCode: 500, messgae: "Unable to create note!" });
+        res.status(400).send({ statusCode: 400, messgae: "Unable to create note!" });
     }
 
 })
