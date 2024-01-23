@@ -43,7 +43,7 @@ const noteSchema = new mongoose.Schema(
 
 noteSchema.pre('save', function (next)
 {
-    Note = this;
+    const Note = this;
     Note.updatedAt = Date.now();
     next();
 });

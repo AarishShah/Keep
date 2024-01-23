@@ -1,9 +1,9 @@
 const express = require('express');
-const Note = require('../models/note')
+const Note = require('../models/note');
 const router = new express.Router()
 
 // To create a new note
-router.post('/notes', auth, async (req, res) =>
+router.post('/notes', async (req, res) =>
 {
     const note = new Note(req.body)
     try
@@ -11,7 +11,10 @@ router.post('/notes', auth, async (req, res) =>
         await note.save();
         res.status(201).send(note);
     } catch (e)
-    { res.status(400).send({ statusCode: 500, messgae: "Unable to create note!" }); }
+    {
+        console.log(e);
+        res.status(400).send({ statusCode: 500, messgae: "Unable to create note!" });
+    }
 
 })
 
@@ -23,10 +26,10 @@ router.get('/notes', async (req, res) =>
 
     try
     {
-        const notes = await Note.find({})
+        const notes = await Note.find({}) // Find all notes
             .sort({ pinned: -1, updatedAt: -1 }) // Sort by pinned and then by updatedAt
-            .limit(limit * 1)
-            .skip((page - 1) * limit);
+            .limit(limit * 1) // implicit conversion of limit to number, we could have used parseInt(limit) as well
+            .skip((page - 1) * limit); // (page - 1) - pages already displayed, eg if page = 4, then 3 pages are already displayed, so skip 3 pages. {(3 pages) * (6 notes) per page = (18 notes)} already displayed, so skip 18 notes.
         res.send(notes);
     } catch (e)
     {
@@ -34,7 +37,7 @@ router.get('/notes', async (req, res) =>
     }
 });
 
-// reading one task
+// reading one note
 router.get('/notes/:id', async (req, res) => 
 {
     const _id = req.params.id
@@ -54,7 +57,7 @@ router.get('/notes/:id', async (req, res) =>
 }
 )
 
-// updating a task
+// updating a note
 router.patch('/notes/:id', async (req, res) =>
 {
     const updates = Object.keys(req.body)
@@ -68,7 +71,6 @@ router.patch('/notes/:id', async (req, res) =>
 
     try
     {
-        // const task = await Task.findById(req.params.id)
         const note = await Note.findById(req.params.id);
 
         if (!note)
@@ -88,12 +90,11 @@ router.patch('/notes/:id', async (req, res) =>
 }
 )
 
-// deleting a task
+// deleting a note
 router.delete('/notes/:id', async (req, res) =>
 {
     try
     {
-        // const task = await Task.findByIdAndDelete(req.params.id)
         const note = await Note.findByIdAndDelete(req.params.id);
 
         if (!note)
