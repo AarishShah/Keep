@@ -1,44 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <title>Notes Keeper</title>
 </head>
 <body>
-    <h1>{{title}}</h1>
-    {{#each notes}}
-        <div class="note">
+    <h1>Notes Keeper</h1>
+
+    <!-- Form for Adding a New Note -->
+    <form id="noteForm">
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="tagline" placeholder="Tagline" required>
+        <textarea id="body" placeholder="Body" required></textarea>
+        <input type="checkbox" id="pinned"> Pin this note
+        <button type="submit">Add Note</button>
+        <div id="message-1"></div>
+    </form>
+
+    <!-- Notes Grid -->
+    <div id="notesGrid">
+        {{#each notes}}
+        <div class="note" data-note-id="{{this._id}}">
             <h2>{{this.title}}</h2>
             <p>{{this.tagline}}</p>
-            <p>{{this.body}}</p>
-            <button class="edit-btn" data-id="{{this._id}}">Edit</button>
+            <div>{{this.body}}</div>
+            <button class="editBtn" onclick="populateFormWithNoteData('{{this._id}}')">Edit</button>
+            <button class="deleteBtn" onclick="deleteNote('{{this._id}}')">Delete</button>
         </div>
-    {{else}}
-        <p>No notes found.</p>
-    {{/each}}
-    <a href="/addnote">Add a New Note</a>
-
-    <!-- Hidden Edit Note Modal -->
-    <div id="editModal" style="display:none;">
-        <form id="editForm">
-            <input type="hidden" id="editId">
-            <label for="editTitle">Title:</label>
-
-            <input type="text" id="editTitle" name="title">
-            <label for="editTagline">Tagline:</label>
-
-            <input type="text" id="editTagline" name="tagline">
-            <label for="editBody">Body:</label>
-
-            <textarea id="editBody" name="body"></textarea>
-            <label for="editPinned">Pin this note:</label>
-
-            <input type="checkbox" id="editPinned" name="pinned">
-            
-            <button type="submit">Save</button>
-        </form>
-        <button onclick="closeEditModal()">Close</button>
+        {{/each}}
     </div>
 
-    <script src="/js/readnotes.js"></script>
+    <!-- Pagination Controls -->
+    <div id="pagination">
+        <button id="prevPage">Previous</button>
+        <button id="nextPage">Next</button>
+    </div>
+
+    <!-- Message for Update/Delete Operations -->
+    <div id="operationMessage"></div>
+
+    <!-- JavaScript Files -->
+    <script src="/js/createNote.js"></script>
+    {{!-- <script src="/js/readNotes.js"></script> --}}
+    <script src="/js/updateNote.js"></script>
+    <script src="/js/deleteNote.js"></script>
 </body>
 </html>
