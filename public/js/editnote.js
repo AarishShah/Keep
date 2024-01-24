@@ -1,49 +1,66 @@
-console.log('Client side javascript file is loaded!');
+document.body.addEventListener('click', function (event) {
+    if (event.target.classList.contains('editBtn')) {
+        const noteId = event.target.parentElement.getAttribute('data-note-id');
+        populateFormWithNoteData(noteId);
+    }
+});
 
-const updateForm = document.querySelector('#updateForm');
-const titleInput = document.querySelector('#title');
-const taglineInput = document.querySelector('#tagline');
-const bodyInput = document.querySelector('#body');
-const pinnedInput = document.querySelector('#pinned');
-const messageOne = document.querySelector('#message-1');
-const noteId = document.querySelector('#noteId').value;
+function populateFormWithNoteData(noteId) {
+    // Find the note element and its data
+    const noteElement = document.querySelector(`div[data-note-id="${noteId}"]`);
+    const title = noteElement.querySelector('h2').textContent;
+    const tagline = noteElement.querySelector('p').textContent;
+    const body = noteElement.querySelector('div').textContent;
 
+    // Populate form fields
+    titleInput.value = title;
+    taglineInput.value = tagline;
+    bodyInput.value = body;
+    // ... include pinned status if applicable
 
+    // Change form to update mode
+    noteForm.setAttribute('data-update-note-id', noteId);
+    noteForm.querySelector('button[type="submit"]').textContent = 'Update Note';
+}
 
-updateForm.addEventListener('submit', (e) =>
-{
-    e.preventDefault(); // prevent the default behavior of refreshing the page
+noteForm.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-    const updatedNoteData = {
-        title: titleInput.value,
-        tagline: taglineInput.value,
-        body: bodyInput.value,
-        pinned: pinnedInput.checked
-    };
+    // Check if we are in update mode
+    const updateNoteId = noteForm.getAttribute('data-update-note-id');
+    if (updateNoteId) {
+        const updatedNoteData = {
+            title: titleInput.value,
+            tagline: taglineInput.value,
+            body: bodyInput.value,
+            // ... include pinned status if applicable
+        };
 
-    messageOne.textContent = 'Updating note...';
-
-    fetch(`http://localhost:3000/notes/${noteId}`,
-        {
+        fetch(`http://localhost:3000/notes/${updateNoteId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedNoteData)
-        }
-    ).then((response) =>
-    {
-        response.json().then((data) =>
-        {
-            if (response.status !== 200)
-            { // 200 OK is the typical success status code for a PATCH request
-                messageOne.textContent = 'Error: ' + (data.message || 'Failed to update the note');
-            } else
-            {
-                messageOne.textContent = 'Note updated successfully!';
-                // Optionally, redirect or update the page to reflect the updated note
+        }).then(response => {
+            if (response.status !== 200) {
+                console.error('Error updating note');
+            } else {
+                // Update the note in the UI
+                const noteElement = document.querySelector(`div[data-note-id="${updateNoteId}"]`);
+                noteElement.querySelector('h2').textContent = updatedNoteData.title;
+                noteElement.querySelector('p').textContent = updatedNoteData.tagline;
+                noteElement.querySelector('div').textContent = updatedNoteData.body;
+                // ... update pinned status if applicable
+
+                // Reset form
+                titleInput.value = '';
+                taglineInput.value = '';
+                bodyInput.value = '';
+                // ... reset pinned status if applicable
+                noteForm.removeAttribute('data-update-note-id');
+                noteForm.querySelector('button[type="submit"]').textContent = 'Add Note';
             }
-        })
-    }).catch((error) =>
-    {
-        messageOne.textContent = 'Error updating note: ' + error;
-    });
+        }).catch(error => {
+            console.error('Error updating note:', error);
+        });
+    }
 });
