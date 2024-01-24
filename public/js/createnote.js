@@ -5,7 +5,8 @@ const bodyInput = document.querySelector('#body');
 const pinnedInput = document.querySelector('#pinned');
 const messageOne = document.querySelector('#message-1');
 
-noteForm.addEventListener('submit', (e) => {
+noteForm.addEventListener('submit', (e) =>
+{
     e.preventDefault();
 
     const noteData = {
@@ -21,11 +22,15 @@ noteForm.addEventListener('submit', (e) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(noteData)
-    }).then(response => {
-        response.json().then(data => {
-            if (response.status !== 201) {
+    }).then(response =>
+    {
+        response.json().then(data =>
+        {
+            if (response.status !== 201)
+            {
                 messageOne.textContent = 'Error: ' + data.message;
-            } else {
+            } else
+            {
                 messageOne.textContent = 'Note added successfully!';
                 titleInput.value = '';
                 taglineInput.value = '';
@@ -33,7 +38,8 @@ noteForm.addEventListener('submit', (e) => {
                 pinnedInput.checked = false;
             }
         })
-    }).catch(error => {
+    }).catch(error =>
+    {
         messageOne.textContent = 'Error adding note: ' + error;
     });
 });
