@@ -22,17 +22,5 @@ app.use(express.static(publicDirectoryPath))
 app.use(express.json())
 app.use(notesRouter)
 
-app.get('/addnote', (req, res) => {
-    res.render('addnote', {
-        title: 'Add a New Note'
-    });
-});
-
-app.get('/editnote', (req, res) => {
-    res.render('editnote', {
-        title: 'Edit Note'
-    });
-});
-
 app.listen
     (port, () => { console.log('Server is up on port ' + port); })
