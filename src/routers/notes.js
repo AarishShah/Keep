@@ -9,11 +9,11 @@ router.post('/notes', async (req, res) =>
     try
     {
         await note.save();
-        res.status(201).send(note);
+        return res.status(201).send(note);
     } catch (e)
     {
-        console.log(e);
-        res.status(400).send({ statusCode: 400, messgae: "Unable to create note!" });
+
+        return res.status(400).render('error', { statusCode: 400, messgae: "Unable to create note!" });
     }
 
 })
@@ -30,10 +30,13 @@ router.get('/notes', async (req, res) =>
             .sort({ pinned: -1, updatedAt: -1 }) // Sort by pinned and then by updatedAt
             .limit(limit * 1) // implicit conversion of limit to number, we could have used parseInt(limit) as well
             .skip((page - 1) * limit); // (page - 1) - pages already displayed, eg if page = 4, then 3 pages are already displayed, so skip 3 pages. {(3 pages) * (6 notes) per page = (18 notes)} already displayed, so skip 18 notes.
-        res.send(notes);
+        // res.send(notes);
+        res.status(201).render('notes', { notes: notes, title: "All notes" });
     } catch (e)
     {
-        res.status(500).send({ statusCode: 500, messgae: "Unable to fetch notes!" });
+        console.log(e);
+        // res.status(400).send({ statusCode: 400, messgae: "Unable to create note!" });
+        res.status(500).render('error', { statusCode: 500, message: "Unable to fetch notes!" });
     }
 });
 

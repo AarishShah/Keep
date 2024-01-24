@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add a New Note</title>
+</head>
+<body>
+    <h1>Add a New Note</h1>
+    <form id="noteForm" action="/notes" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="tagline">Tagline:</label><br>
+        <input type="text" id="tagline" name="tagline" required><br>
+
+        <label for="body">Body:</label><br>
+        <textarea id="body" name="body" required></textarea><br>
+
+        <label for="pinned">Pin this note:</label>
+        <input type="checkbox" id="pinned" name="pinned" value="true"><br>
+
+        <div id="message-1"></div>
+
+        <input type="submit" value="Submit">
+        
+        <script src="/js/app.js"></script>
+    </form> 
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+    {{#each notes}}
+        <div class="note">
+            <h2>{{this.title}}</h2>
+            <p>{{this.tagline}}</p>
+            <p>{{this.body}}</p>
+        </div>
+    {{else}}
+        <p>No notes found.</p>
+    {{/each}}
+    <a href="/addnote">Add a New Note</a>
+</body>
+</html>
