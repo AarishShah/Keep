@@ -23,15 +23,25 @@ router.post('/notes', async (req, res) =>
 router.get('/notes', async (req, res) =>
 {
     const { page = 1, limit = 6 } = req.query;
+    const currentPage = parseInt(page);
 
     try
     {
+        const totalNotes = await Note.countDocuments();
+        const totalPages = Math.ceil(totalNotes / limit);
         const notes = await Note.find({}) // Find all notes
             .sort({ pinned: -1, updatedAt: -1 }) // Sort by pinned and then by updatedAt
             .limit(limit * 1) // implicit conversion of limit to number, we could have used parseInt(limit) as well
             .skip((page - 1) * limit); // (page - 1) - pages already displayed, eg if page = 4, then 3 pages are already displayed, so skip 3 pages. {(3 pages) * (6 notes) per page = (18 notes)} already displayed, so skip 18 notes.
-        // res.send(notes);
-        res.status(201).render('notes', { notes: notes, title: "All notes" });
+        const previousPage = currentPage > 1 ? currentPage - 1 : null;
+        const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+        res.status(201).render('notes', { 
+            notes: notes, 
+            title: "All notes",
+            previousPage: previousPage,
+            nextPage: nextPage,
+            currentPage: currentPage
+        });
     } catch (e)
     {
         console.log(e);

@@ -31,10 +31,21 @@
     </div>
 
     <!-- Pagination Controls -->
-    <div id="pagination">
-        <button id="prevPage">Previous</button>
-        <button id="nextPage">Next</button>
-    </div>
+<div id="pagination">
+    {{#if previousPage}}
+    <a href="/notes?page={{previousPage}}&limit=6">Previous</a>
+    {{else}}
+    <span>Previous</span>
+    {{/if}}
+
+    Page {{currentPage}}
+
+    {{#if nextPage}}
+    <a href="/notes?page={{nextPage}}&limit=6">Next</a>
+    {{else}}
+    <span>Next</span>
+    {{/if}}
+</div>
 
     <!-- Message for Update/Delete Operations -->
     <div id="operationMessage"></div>
