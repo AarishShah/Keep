@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Note</title>
+</head>
+<body>
+    <h1>Edit Note</h1>
+    <form id="editForm" action="/notes/{{note._id}}?_method=PATCH" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" value="{{note.title}}" ><br>
+
+        <label for="tagline">Tagline:</label><br>
+        <input type="text" id="tagline" name="tagline" value="{{note.tagline}}" ><br>
+
+        <label for="body">Body:</label><br>
+        <textarea id="body" name="body" >{{note.body}}</textarea><br>
+
+        <label for="pinned">Pin this note:</label>
+        <input type="checkbox" id="pinned" name="pinned" {{#if note.pinned}}checked{{/if}}><br>
+
+        <input type="submit" value="Update">
+    </form> 
+    <script src="/js/editnote.js"></script>
+</body>
+</html>

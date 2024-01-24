@@ -40,26 +40,6 @@ router.get('/notes', async (req, res) =>
     }
 });
 
-// reading one note
-router.get('/notes/:id', async (req, res) => 
-{
-    const _id = req.params.id
-    try
-    {
-        const note = await Note.findById(_id)
-
-        if (!note)
-        {
-            return res.status(404).send({ statusCode: 404, messgae: "Note not found!" })
-        }
-        res.send(note)
-
-    } catch (e)
-    { res.status(500).send({ statusCode: 500, messgae: "Unable to fetch note!" }); }
-
-}
-)
-
 // updating a note
 router.patch('/notes/:id', async (req, res) =>
 {
@@ -84,11 +64,11 @@ router.patch('/notes/:id', async (req, res) =>
         updates.forEach((update) => note[update] = req.body[update])
         await note.save()
 
-        res.send(note)
+        return res.status(200).send(note);
     }
     catch (e)
     {
-        res.status(400).send({ statusCode: 400, messgae: "Unable to update note!" })
+        return res.status(400).render('error', { statusCode: 400, message: "Unable to update note!" });
     }
 }
 )

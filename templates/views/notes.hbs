@@ -10,10 +10,35 @@
             <h2>{{this.title}}</h2>
             <p>{{this.tagline}}</p>
             <p>{{this.body}}</p>
+            <button class="edit-btn" data-id="{{this._id}}">Edit</button>
         </div>
     {{else}}
         <p>No notes found.</p>
     {{/each}}
     <a href="/addnote">Add a New Note</a>
+
+    <!-- Hidden Edit Note Modal -->
+    <div id="editModal" style="display:none;">
+        <form id="editForm">
+            <input type="hidden" id="editId">
+            <label for="editTitle">Title:</label>
+
+            <input type="text" id="editTitle" name="title">
+            <label for="editTagline">Tagline:</label>
+
+            <input type="text" id="editTagline" name="tagline">
+            <label for="editBody">Body:</label>
+
+            <textarea id="editBody" name="body"></textarea>
+            <label for="editPinned">Pin this note:</label>
+
+            <input type="checkbox" id="editPinned" name="pinned">
+            
+            <button type="submit">Save</button>
+        </form>
+        <button onclick="closeEditModal()">Close</button>
+    </div>
+
+    <script src="/js/readnotes.js"></script>
 </body>
 </html>

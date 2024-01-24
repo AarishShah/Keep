@@ -28,6 +28,11 @@ app.get('/addnote', (req, res) => {
     });
 });
 
+app.get('/editnote', (req, res) => {
+    res.render('editnote', {
+        title: 'Edit Note'
+    });
+});
 
 // app.get('', (req, res) =>
 // {
