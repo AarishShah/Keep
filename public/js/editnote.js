@@ -11,12 +11,13 @@ function populateFormWithNoteData(noteId) {
     const title = noteElement.querySelector('h2').textContent;
     const tagline = noteElement.querySelector('p').textContent;
     const body = noteElement.querySelector('div').textContent;
+    const pinned = noteElement.querySelector('#pie').textContent === 'true';
 
     // Populate form fields
     titleInput.value = title;
     taglineInput.value = tagline;
     bodyInput.value = body;
-    // ... include pinned status if applicable
+    pinnedInput.checked = pinned;
 
     // Change form to update mode
     noteForm.setAttribute('data-update-note-id', noteId);
@@ -33,7 +34,7 @@ noteForm.addEventListener('submit', function (e) {
             title: titleInput.value,
             tagline: taglineInput.value,
             body: bodyInput.value,
-            // ... include pinned status if applicable
+            pinned: pinnedInput.checked
         };
 
         fetch(`http://localhost:3000/notes/${updateNoteId}`, {
@@ -49,13 +50,13 @@ noteForm.addEventListener('submit', function (e) {
                 noteElement.querySelector('h2').textContent = updatedNoteData.title;
                 noteElement.querySelector('p').textContent = updatedNoteData.tagline;
                 noteElement.querySelector('div').textContent = updatedNoteData.body;
-                // ... update pinned status if applicable
+                noteElement.querySelector('#pie').checked = updatedNoteData.pinned;
 
                 // Reset form
                 titleInput.value = '';
                 taglineInput.value = '';
                 bodyInput.value = '';
-                // ... reset pinned status if applicable
+                pinnedInput.value = 'false';
                 noteForm.removeAttribute('data-update-note-id');
                 noteForm.querySelector('button[type="submit"]').textContent = 'Add Note';
             }

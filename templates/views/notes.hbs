@@ -24,6 +24,7 @@
             <h2>{{this.title}}</h2>
             <p>{{this.tagline}}</p>
             <div>{{this.body}}</div>
+            <div id="pie">{{this.pinned}}</div>
             <button class="editBtn" onclick="populateFormWithNoteData('{{this._id}}')">Edit</button>
             <button class="deleteBtn" onclick="deleteNote('{{this._id}}')">Delete</button>
         </div>
