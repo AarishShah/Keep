@@ -41,7 +41,15 @@ header {
 #noteForm input[type="text"],
 #noteForm textarea {
   margin-bottom: 20px;
+  max-width: 550px;
+  min-width: 550px;
+  min-height: 40px;
 }
+
+#noteForm textarea {
+  min-height: 100px;
+}
+
 #noteForm input[type="checkbox"] {
   align-self: flex-start;
   margin-bottom: 10px;
@@ -76,7 +84,6 @@ header {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .note h2 {
@@ -91,6 +98,7 @@ header {
 .note .deleteBtn {
   align-self: flex-end;
   margin-left: 10px;
+  margin-bottom: 10px;
   background-color: #008cba;
   border: none;
   color: white;
