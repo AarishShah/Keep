@@ -59,6 +59,9 @@ noteForm.addEventListener('submit', function (e) {
                 noteForm.removeAttribute('data-update-note-id');
                 noteForm.querySelector('button[type="submit"]').textContent = 'Add Note';
             }
+            // to refresh the notes
+            window.location.reload();
+
         }).catch(error => {
             console.error('Error updating note:', error);
         });

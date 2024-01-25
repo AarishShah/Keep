@@ -7,6 +7,11 @@ const messageOne = document.querySelector('#message-1');
 
 noteForm.addEventListener('submit', (e) =>
 {
+    if (noteForm.getAttribute("data-update-note-id"))
+    {
+        return;
+    }
+    
     e.preventDefault();
 
     const noteData = {
@@ -38,6 +43,10 @@ noteForm.addEventListener('submit', (e) =>
                 pinnedInput.checked = false;
             }
         })
+
+        // to refresh the notes
+        window.location.reload();
+
     }).catch(error =>
     {
         messageOne.textContent = 'Error adding note: ' + error;
