@@ -140,6 +140,9 @@ header {
 #pagination span {
   color: #ccc;
 }
+a:visited {
+  color: inherit;
+}
 
 footer {
   color: #ffffff;
