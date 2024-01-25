@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notes Keeper</title>
+    <title>Quick Notes</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Notes Keeper</h1>
+    <div class="main-content">
+    {{> header}}
 
     <!-- Form for Adding a New Note -->
     <form id="noteForm">
@@ -47,9 +49,8 @@
     <span>Next</span>
     {{/if}}
 </div>
-
-    <!-- Message for Update/Delete Operations -->
-    <div id="operationMessage"></div>
+</div>
+{{> footer}}
 
     <!-- JavaScript Files -->
     <script src="/js/createNote.js"></script>
