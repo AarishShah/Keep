@@ -1,8 +1,19 @@
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const mongoose = require('mongoose')
+
+// Construct the MongoDB Atlas connection URI
+const username = encodeURIComponent(process.env.DB_USERNAME);
+const password = encodeURIComponent(process.env.DB_PASSWORD);
+const clusterUrl = process.env.DB_CLUSTER_URL;
+console.log(username, password, clusterUrl);
+const dbName = 'keep';
+const uri = `mongodb+srv://${username}:${password}@${clusterUrl}/${dbName}?retryWrites=true&w=majority`;
+
 
 mongoose.connect
     (
-        'mongodb://127.0.0.1:27017/keep',
+        uri,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
