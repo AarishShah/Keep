@@ -23,7 +23,7 @@ noteForm.addEventListener('submit', (e) =>
 
     messageOne.textContent = 'Loading...';
 
-    fetch('http://localhost:3000/notes', {
+    fetch('http://localhost:3000/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(noteData)

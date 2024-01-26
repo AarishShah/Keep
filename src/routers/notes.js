@@ -3,7 +3,7 @@ const Note = require('../models/note');
 const router = new express.Router()
 
 // To create a new note
-router.post('/notes', async (req, res) =>
+router.post('/', async (req, res) =>
 {
     const note = new Note(req.body)
     try
@@ -20,7 +20,7 @@ router.post('/notes', async (req, res) =>
 
 
 // GET /notes - Retrieve all notes with pagination
-router.get('/notes', async (req, res) =>
+router.get('/', async (req, res) =>
 {
     const { page = 1, limit = 6 } = req.query;
     const currentPage = parseInt(page);
@@ -51,7 +51,7 @@ router.get('/notes', async (req, res) =>
 });
 
 // updating a note
-router.patch('/notes/:id', async (req, res) =>
+router.patch('/:id', async (req, res) =>
 {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['title', 'tagline', 'body', 'pinned']
@@ -84,7 +84,7 @@ router.patch('/notes/:id', async (req, res) =>
 )
 
 // deleting a note
-router.delete('/notes/:id', async (req, res) =>
+router.delete('/:id', async (req, res) =>
 {
     try
     {
