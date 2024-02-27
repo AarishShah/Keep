@@ -37,7 +37,7 @@ noteForm.addEventListener('submit', function (e) {
             pinned: pinnedInput.checked
         };
 
-        fetch(`http://localhost:3000/${updateNoteId}`, {
+        fetch(`/${updateNoteId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedNoteData)
