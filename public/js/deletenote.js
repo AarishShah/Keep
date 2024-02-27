@@ -6,7 +6,7 @@ document.body.addEventListener('click', function (event) {
 });
 
 function deleteNote(noteId) {
-    fetch(`http://localhost:3000/${noteId}`, {
+    fetch(`/${noteId}`, {
         method: 'DELETE',
     }).then(response => {
         if (response.status !== 200) {
